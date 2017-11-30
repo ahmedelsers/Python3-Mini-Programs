@@ -11,3 +11,5 @@ Also, as an Intermediate Programmer, I'm following the first 3 python zen rules:
     1- Beautiful is better than ugly.
     2- Explicit is better than implicit.
     3- Simple is better than complex.
+
+This repository is just started, one script is created at a time, with a very minimum functionality, and it get updated once a new functionality has been learnt and ready to be added.

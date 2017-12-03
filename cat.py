@@ -18,13 +18,15 @@ parser.add_argument("-T", "--show-tabs", help="display TAB characters as ^I", ac
 parser.add_argument("-v", "--version", help="print version", action="version", version="%(prog)s 0.1")
 parser.add_argument("-O", "--outfile", nargs="?", type=argparse.FileType("w"),
                     help="Concatenate to a file", default=sys.stdout)
-parser.add_argument("FILE", nargs="*", default=sys.stdin)
+parser.add_argument("FILE", nargs="*")
 args = parser.parse_args()
 
 
 try:
-    for file in fileinput.input():
-        print(file, end="")
+    for file in fileinput.input(args.FILE):
+        if args.number:
+            print('    ', fileinput.lineno(), file, end="")
+        else:
+            print(file, end="")
 except FileNotFoundError:
-    for i in args.FILE:
-        print(i,":", "No such file or directory")
+    print(fileinput.filename(),":", "No such file or directory")

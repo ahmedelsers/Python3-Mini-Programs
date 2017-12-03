@@ -22,27 +22,9 @@ parser.add_argument("FILE", nargs="*", default=sys.stdin)
 args = parser.parse_args()
 
 
-def number_lines(file):
-    try:
-        with open(file) as f:
-            file_as_list = f.readlines()
-            for i in range(len(file_as_list)):
-                print('    ', i+1, ' ', file_as_list[i], end='')
-    except FileNotFoundError:
-        print(file,":", "No such file or directory")
-
-
-
-if args.FILE is sys.stdin:
-    for file in args.FILE:
-        print(file.strip())
-else:
-    for file in args.FILE:
-        try:
-            if args.number:
-                number_lines(file.strip())
-            else:
-                with open(file) as f:
-                    print(f.read())
-        except FileNotFoundError:
-            print(file,":", "No such file or directory")
+try:
+    for file in fileinput.input():
+        print(file, end="")
+except FileNotFoundError:
+    for i in args.FILE:
+        print(i,":", "No such file or directory")

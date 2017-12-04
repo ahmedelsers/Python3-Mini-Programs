@@ -21,11 +21,17 @@ parser.add_argument("-O", "--outfile", nargs="?", type=argparse.FileType("w"),
 parser.add_argument("FILE", nargs="*")
 args = parser.parse_args()
 
-
+line_number = 1
 try:
     for file in fileinput.input(args.FILE):
         if args.number:
             print('    ', fileinput.lineno(), file, end="")
+        elif (args.number_nonblank or args.number) and file.strip():
+            print('    ', line_number, file, end="")
+            line_number += 1
+        elif (args.number_nonblank or args.number) and not file.strip():
+            print()
+            continue
         else:
             print(file, end="")
 except FileNotFoundError:

@@ -21,18 +21,22 @@ parser.add_argument("-O", "--outfile", nargs="?", type=argparse.FileType("w"),
 parser.add_argument("FILE", nargs="*")
 args = parser.parse_args()
 
+
 line_number = 1
 try:
-    for file in fileinput.input(args.FILE):
-        if args.number:
+    if args.number and not args.number_nonblank:
+        for file in fileinput.input(args.FILE):
             print('    ', fileinput.lineno(), file, end="")
-        elif (args.number_nonblank or args.number) and file.strip():
-            print('    ', line_number, file, end="")
-            line_number += 1
-        elif (args.number_nonblank or args.number) and not file.strip():
-            print()
-            continue
-        else:
+    elif args.number_nonblank:
+        for file in fileinput.input(args.FILE):
+            if file.strip():
+                print('    ', line_number, file, end="")
+                line_number += 1
+            else:
+                print()
+                continue
+    else:
+        for file in fileinput.input(args.FILE):
             print(file, end="")
 except FileNotFoundError:
     print(fileinput.filename(),":", "No such file or directory")

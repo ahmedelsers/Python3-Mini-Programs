@@ -76,6 +76,8 @@ try:
         cat_with_args(args)
 except FileNotFoundError:
     print(fileinput.filename(),":", "No such file or directory")
+except IsADirectoryError:
+    print(fileinput.filename(),":", "Is a directory")
 
 
 parser.exit(message="Thank You for using my Script!\n")

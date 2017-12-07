@@ -1,5 +1,6 @@
 #! /usr/bin/env python3
 
+import sys
 import argparse
 import fileinput
 from textwrap import dedent
@@ -78,6 +79,9 @@ except FileNotFoundError:
     print(fileinput.filename(),":", "No such file or directory")
 except IsADirectoryError:
     print(fileinput.filename(),":", "Is a directory")
+except KeyboardInterrupt:
+    print()
+    sys.exit(0)
 
 
 parser.exit(message="Thank You for using my Script!\n")

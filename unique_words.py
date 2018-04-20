@@ -1,3 +1,8 @@
+"""
+The program construct a dictionary where the keys are all unique words in all the files, regular expression used is r"\w+".
+The value of each entry is a list of file names that contain the word.
+"""
+
 import glob
 import re
 from collections import Counter, defaultdict

@@ -1,4 +1,5 @@
 import tkinter as tk
+import tkinter.messagebox as mb
 
 class TipCalc(tk.Tk):
 
@@ -28,11 +29,22 @@ class TipCalc(tk.Tk):
         self.total = tk.Label(self, textvariable=self.totalOutput)
         self.total.grid(row=2, column=1)
 
-    
+
+    def notPositive(self, data):
+        try:
+            if data <= 0:
+                raise NotPositiveError
+            else:
+                return data
+        except:
+            mb.showwarning("Error", "Please Enter a valid number")
+
+
     def totalBill(self, event=None):
-        tipAmount = self.billVar.get() * (self.tipVar.get() / 100)
-        totalAmount = self.billVar.get() + tipAmount
-        self.totalOutput.set(round(totalAmount, 2))
+        if self.notPositive(self.billVar.get()) and self.notPositive(self.tipVar.get()):
+            tipAmount = self.billVar.get() * (self.tipVar.get() / 100)
+            totalAmount = self.billVar.get() + tipAmount
+            self.totalOutput.set(round(totalAmount, 2))
 
 
 

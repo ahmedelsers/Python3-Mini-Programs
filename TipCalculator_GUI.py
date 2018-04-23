@@ -32,7 +32,7 @@ class TipCalc(tk.Tk):
 
     def isPositive(self, data):
         try:
-            if data <= 0 or data == "":
+            if data <= 0:
                 raise NotPositiveError
             else:
                 return data
@@ -49,7 +49,7 @@ class TipCalc(tk.Tk):
                 totalAmount = self.billVar.get() + tipAmount
                 self.totalOutput.set(round(totalAmount, 2))
         except:
-            mb.showwarning("Error", "Please Enter a valid number")
+            mb.showwarning("Error", "Please Make sure to Enter a valid number")
 
 
 if __name__ == "__main__":

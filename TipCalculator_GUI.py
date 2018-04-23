@@ -33,20 +33,26 @@ class TipCalc(tk.Tk):
 
     def notPositive(self, data):
         try:
-            if data <= 0:
+            if data <= 0 or data == "":
                 raise NotPositiveError
             else:
                 return data
         except:
             mb.showwarning("Error", "Please Enter a valid number")
+        finally:
+            self.billEntry.delete(0, 'end')
+            self.tipEntry.delete(0, 'end')
 
 
     def totalBill(self, event=None):
-        if self.notPositive(self.billVar.get()) and self.notPositive(self.tipVar.get()):
-            tipAmount = self.billVar.get() * (self.tipVar.get() / 100)
-            totalAmount = self.billVar.get() + tipAmount
-            self.totalOutput.set(round(totalAmount, 2))
-
+        try:
+            if self.billVar.get() and self.tipVar.get():
+                if self.notPositive(self.billVar.get()) and self.notPositive(self.tipVar.get()):
+                    tipAmount = self.billVar.get() * (self.tipVar.get() / 100)
+                    totalAmount = self.billVar.get() + tipAmount
+                    self.totalOutput.set(round(totalAmount, 2))
+        except:
+            mb.showwarning("Error", "Please Enter a valid number")
 
 
 if __name__ == "__main__":

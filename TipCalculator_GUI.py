@@ -34,6 +34,8 @@ class TipCalc(tk.Tk):
         try:
             if data <= 0:
                 raise NotPositiveError
+            else:
+                return data
         except:
             mb.showwarning("Error", "Please Enter a valid number")
             self.billEntry.delete(0, 'end')

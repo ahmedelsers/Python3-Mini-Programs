@@ -6,8 +6,6 @@ class TipCalc(tk.Tk):
 
     def __init__(self):
         super().__init__()
-        self.billVar = tk.DoubleVar()
-        self.tipVar = tk.DoubleVar()
 
         self.pattern = re.compile(r"[1-9]+")
         vcmd = (self.register(self.validateEntry), "%S")

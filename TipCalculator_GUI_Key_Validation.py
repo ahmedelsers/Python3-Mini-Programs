@@ -7,8 +7,8 @@ class TipCalc(tk.Tk):
     def __init__(self):
         super().__init__()
 
-        self.pattern = re.compile(r"[1-9]+")
-        vcmd = (self.register(self.validateEntry), "%S")
+        self.pattern = re.compile(r"[1-9]+|[1-9]+\.[0-9]+")
+        vcmd = (self.register(self.validateEntry), "%P")
 
         self.billLabel = tk.Label(self, text="Bill:")
         self.billLabel.grid(row=0, column=0)
@@ -17,8 +17,8 @@ class TipCalc(tk.Tk):
 
         self.tipLabel = tk.Label(self, text="Tip:")
         self.tipLabel.grid(row=1, column=0)
-        self.tipEntry = tk.Entry(self, validate="key", validatecommand=vcmd, invalidcommand=self.inValidEntry)
-        self.tipEntry.grid(row=1, column=1, sticky='e' + 'w')
+        self.spinbox = tk.Spinbox(self, from_=10, to=30)
+        self.spinbox.grid(row=1, column=1, sticky='e' + 'w')
 
         self.calcButton = tk.Button(self, text="Calculate")
         self.calcButton.bind("<Button-1>", self.totalBill)
@@ -32,8 +32,8 @@ class TipCalc(tk.Tk):
         self.total.grid(row=2, column=1)
 
 
-    def validateEntry(self, S):
-        return (self.pattern.match(str(S)) != None)
+    def validateEntry(self, P):
+        return (self.pattern.match(str(P)) != None)
 
 
     def inValidEntry(self):
@@ -41,7 +41,7 @@ class TipCalc(tk.Tk):
 
 
     def totalBill(self, event=None):
-        tipAmount = float(self.billEntry.get()) * (float(self.tipEntry.get()) / 100)
+        tipAmount = float(self.billEntry.get()) * (float(self.spinbox.get()) / 100)
         totalAmount = float(self.billEntry.get()) + tipAmount
         self.totalOutput.set(round(totalAmount, 2))
 

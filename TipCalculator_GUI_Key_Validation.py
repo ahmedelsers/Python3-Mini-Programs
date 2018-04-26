@@ -35,10 +35,8 @@ class TipCalc(tk.Tk):
 
 
     def validateEntry(self, S):
-        if self.pattern.match(str(S)):
-            return True
-        else:
-            return False
+        return (self.pattern.match(str(S)) != None)
+
 
     def inValidEntry(self):
         mb.showwarning("Error", "Please Enter a valid number")

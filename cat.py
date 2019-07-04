@@ -82,6 +82,3 @@ except IsADirectoryError:
 except KeyboardInterrupt:
     print()
     sys.exit(0)
-
-
-parser.exit(message="Thank You for using my Script!\n")
